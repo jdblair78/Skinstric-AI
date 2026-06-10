@@ -1,10 +1,17 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
 export default function Navbar() {
+  const router = useRouter();
+
   return (
     <nav className="w-full h-16">
       <div className="max-w-full mx-auto h-full flex items-center justify-between px-6">
 
         <div className="flex items-center gap-8">
-          <button className="btn text-sm uppercase font-semibold tracking-tight">
+          <button className="btn text-sm uppercase font-semibold tracking-tight"
+            onClick={() => router.push("/Landing")}>
             SKINSTRIC
           </button>
 

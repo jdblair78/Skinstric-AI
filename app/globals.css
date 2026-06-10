@@ -28,6 +28,36 @@ body {
   font-family: var(--font-sans);
 }
 
+@keyframes spin-clockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin-slow,
+.spin-medium,
+.spin-fast {
+  transform-origin: center;
+  animation-play-state: running;
+}
+
+.spin-slow {
+  animation: spin-clockwise 50s linear infinite;
+  animation-fill-mode: both;
+}
+
+.spin-medium {
+  animation: spin-clockwise 45s linear infinite;
+  animation-fill-mode: both;
+}
+
+.spin-fast {
+  animation: spin-clockwise 40s linear infinite;
+  animation-fill-mode: both;
+}
 
 .row {
 

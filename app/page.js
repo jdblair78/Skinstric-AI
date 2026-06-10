@@ -1,5 +1,5 @@
-import Navbar from "./components/Navbar/page";
-import Landing from "./components/Landing/page";
+import Navbar from "./Navbar/page";
+import Landing from "./Landing/page";
 
 export default function Home() {
   return (

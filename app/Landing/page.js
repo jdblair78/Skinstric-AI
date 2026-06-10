@@ -1,16 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Navbar from "../Navbar/page";
 
 export default function Landing() {
   const [hoverSide, setHoverSide] = useState(null);
+  const router = useRouter();
 
   return (
+    <>
+    <Navbar />
     <main className="h-[calc(100vh-64px)] overflow-hidden flex flex-col px-6">
       <div className="flex flex-1 items-center justify-between">
-
-        {/* LEFT SIDE */}
         <div
   className={`relative transition-opacity duration-500 ${
     hoverSide === "right"
@@ -29,6 +32,7 @@ export default function Landing() {
 
           <div className="absolute inset-0 flex items-center justify-center">
             <button
+             
               onMouseEnter={() => setHoverSide("left")}
               onMouseLeave={() => setHoverSide(null)}
               className="group inline-flex items-center gap-2 bg-[#FCFCFC] px-4 py-2 rounded-md"
@@ -47,7 +51,6 @@ export default function Landing() {
           </div>
         </div>
 
-        {/* CENTER TEXT */}
         <h1
           className={`max-w-[800px] text-center text-[96px] md:text-[128px] leading-[1] tracking-[-0.02em] text-[#1A1B1C] transition-transform duration-700 ease-in-out ${
             hoverSide === "left"
@@ -62,7 +65,6 @@ export default function Landing() {
           skincare
         </h1>
 
-        {/* RIGHT SIDE */}
       <div
   className={`relative transition-opacity duration-500 ${
     hoverSide === "left"
@@ -80,6 +82,7 @@ export default function Landing() {
 
           <div className="absolute inset-0 flex items-center justify-center">
             <button
+             onClick={() => router.push("/Introduce")}
               onMouseEnter={() => setHoverSide("right")}
               onMouseLeave={() => setHoverSide(null)}
               className="group inline-flex items-center gap-2 bg-[#FCFCFC] px-4 py-2 rounded-md"
@@ -107,5 +110,7 @@ export default function Landing() {
         WHAT YOUR SKIN NEEDS.
       </div>
     </main>
+    </>
+
   );
 }
