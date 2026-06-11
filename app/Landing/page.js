@@ -11,7 +11,6 @@ export default function Landing() {
 
   return (
     <>
-    <Navbar />
     <main className="h-[calc(100vh-64px)] overflow-hidden flex flex-col px-6">
       <div className="flex flex-1 items-center justify-between">
         <div

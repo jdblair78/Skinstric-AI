@@ -6,7 +6,7 @@ import Navbar from "../Navbar/page";
 import BackButton from "../components/BackButton/page";
 import RotatingRectangleInput from "../components/RotatingRectangleInput/page";
 
-export default function Introduce() {
+export default function Where() {
   const [name, setName] = useState("");
   const router = useRouter();
 
@@ -22,13 +22,7 @@ export default function Introduce() {
           <RotatingRectangleInput
             value={name}
             onChange={(event) => setName(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                event.preventDefault();
-                router.push("/Where");
-              }
-            }}
-            placeholder="Introduce Yourself"
+            placeholder="Where are you from?"
           />
         </div>
 
