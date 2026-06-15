@@ -1,11 +1,12 @@
 "use client";
 
 import { useRouter, usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
-  const showEnterCode = pathname === "/Landing";
+  const showEnterCode = pathname === "/";
 
   return (
     <nav className="w-full h-16">
@@ -20,15 +21,19 @@ export default function Navbar() {
           </button>
 
           <button className="flex items-center gap-2 text-sm uppercase font-semibold tracking-tight opacity-60">
-            <img
+            <Image
               src="/Rectangle 2710 (1).svg"
               alt=""
+              width={16}
+              height={16}
               className="w-4 h-4"
             />
             INTRO
-            <img
+            <Image
               src="/Rectangle 2711.svg"
               alt=""
+              width={16}
+              height={16}
               className="w-4 h-4"
             />
           </button>
