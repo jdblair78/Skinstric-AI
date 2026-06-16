@@ -21,8 +21,11 @@ export default function Where() {
 
     if (!location.trim()) return;
 
-    const savedName = localStorage.getItem("skinstric_name");
+    const existingData = JSON.parse(
+      localStorage.getItem("skinstric_phase_one"),
+    );
 
+    const savedName = existingData?.name;
     if (!savedName) {
       console.log("No name found");
       return;
@@ -35,33 +38,13 @@ export default function Where() {
       location,
     };
 
-    console.log("Sending:", payload);
+    localStorage.setItem("skinstric_phase_one", JSON.stringify(payload));
 
-    try {
-      const res = await fetch(
-        "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseOne",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        },
-      );
+    console.log({
+      Success: `added ${payload.name} from ${payload.location}`,
+    });
 
-      if (!res.ok) {
-        const errorText = await res.text();
-        console.log("API Error:", errorText);
-        throw new Error(`HTTP ${res.status}`);
-      }
-
-      setTimeout(() => {
-        setStatus("success");
-      }, 3000);
-    } catch (err) {
-      console.error(err);
-      setStatus("error");
-    }
+    setStatus("success");
   }
 
   return (

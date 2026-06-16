@@ -15,31 +15,36 @@ export default function Introduce() {
       <Navbar />
 
       <section className="relative h-[calc(100vh-64px)] overflow-hidden flex flex-col px-6">
-  <p className="text-[16px] leading-6 tracking-[-0.02em] font-semibold text-[#1A1B1C]">
-    TO START ANALYSIS
-  </p>
+        <p className="text-[16px] leading-6 tracking-[-0.02em] font-semibold text-[#1A1B1C]">
+          TO START ANALYSIS
+        </p>
 
-  <div className="flex flex-1 flex-col items-center justify-center gap-3">
-    <RotatingRectangleInput
-      value={name}
-      onChange={(event) => setName(event.target.value)}
-      onKeyDown={(event) => {
-        if (event.key === "Enter") {
-          event.preventDefault();
+        <div className="flex flex-1 flex-col items-center justify-center gap-3">
+          <RotatingRectangleInput
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                event.preventDefault();
 
-          if (!name.trim()) return;
+                if (!name.trim()) return;
 
-          localStorage.setItem("skinstric_name", name);
+                localStorage.setItem(
+                  "skinstric_phase_one",
+                  JSON.stringify({
+                    name,
+                  }),
+                );
 
-          router.push("/Where");
-        }
-      }}
-      placeholder="Introduce Yourself"
-    />
-  </div>
+                router.push("/Where");
+              }
+            }}
+            placeholder="Introduce Yourself"
+          />
+        </div>
 
-  <BackButton />
-</section>
+        <BackButton />
+      </section>
     </>
   );
 }

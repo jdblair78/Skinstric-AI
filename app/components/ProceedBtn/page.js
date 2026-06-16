@@ -15,7 +15,7 @@ export default function ProceedBtn() {
       <span>Proceed</span>
 
       <Image
-        className="transition-transform duration-300 group-hover:scale-110"
+        className="transition-transform duration-300 group-hover:scale-110 cursor-pointer"
         src="/buttin-icon-right.svg"
         alt="Proceed"
         width={44}
