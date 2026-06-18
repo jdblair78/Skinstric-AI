@@ -21,6 +21,9 @@ export default function Introduce() {
 
         <div className="flex flex-1 flex-col items-center justify-center gap-3">
           <RotatingRectangleInput
+            large={750}
+            medium={680}
+            small={600}
             value={name}
             onChange={(event) => setName(event.target.value)}
             onKeyDown={(event) => {

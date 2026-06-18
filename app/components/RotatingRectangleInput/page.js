@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 
 export default function RotatingRectangleInput({
+  large = 482,
+  medium = 444,
+  small = 405,
   value,
   onChange,
   placeholder,
@@ -16,24 +18,24 @@ export default function RotatingRectangleInput({
       <Image
         src="/Rectangle large.svg"
         alt=""
-        width={750}
-        height={750}
+        width={large}
+        height={large}
         className="absolute z-0 spin-slow"
       />
 
       <Image
         src="/Rectangle med.svg"
         alt=""
-        width={680}
-        height={680}
+        width={medium}
+        height={medium}
         className="absolute z-0 spin-medium"
       />
 
       <Image
         src="/Rectangle small.svg"
         alt=""
-        width={600}
-        height={600}
+        width={small}
+        height={small}
         className="absolute z-0 spin-fast"
       />
 

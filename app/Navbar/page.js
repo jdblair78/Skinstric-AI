@@ -15,7 +15,7 @@ export default function Navbar() {
         <div className="flex items-center gap-8">
           <button
             className="btn text-sm uppercase font-semibold tracking-tight"
-            onClick={() => router.push("/Landing")}
+            onClick={() => router.push("/")}
           >
             SKINSTRIC
           </button>

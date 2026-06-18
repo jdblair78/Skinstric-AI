@@ -1,48 +1,74 @@
 "use client";
 
-import { useState } from "react";
 import BackButton from "../components/BackButton/page";
 import Progress from "../components/Progress/page";
 import Navbar from "../Navbar/page";
 import AIConfidence from "../components/AIConfidence/page";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Demographics() {
-    const router = useRouter();
+  const router = useRouter();
 
-    const [selectedCategory, setSelectedCategory] = useState("sex");
-    
-    const demographicsData = {
-        race: {
-            title: "East Asian",
-            confidenceTitle: "Race A.I Confidence",
-            results: [
-                { label: "East Asian", percent: 67 },
-                { label: "White", percent: 18 },
-                { label: "Black", percent: 10 },
-                { label: "Latino", percent: 5 },
-            ],
-        },
-        age: {
-            title: "20-29",
-            confidenceTitle: "Age A.I Confidence",
-            results: [
-                { label: "20-29", percent: 82 },
-                { label: "30-39", percent: 12 },
-                { label: "40-49", percent: 6 },
-            ],
-        },
-        sex: {
-            title: "Female",
-            confidenceTitle: "Sex A.I Confidence",
-            results: [
-                { label: "Female", percent: 71 },
-                { label: "Male", percent: 28 },
-            ],
-        },
-    };
-    
-    const selectedData = demographicsData[selectedCategory];
+  const [overrides, setOverrides] = useState({});
+
+  const [selectedCategory, setSelectedCategory] = useState("sex");
+
+  const [apiData] = useState(() => {
+    if (typeof window === "undefined") return null;
+
+    const savedResults = JSON.parse(localStorage.getItem("skinstric_results"));
+
+    return savedResults?.data || null;
+  });
+
+  if (!apiData) {
+    return (
+      <>
+        <Navbar />
+        <div className="p-6">Loading demographics...</div>
+      </>
+    );
+  }
+
+  const demographicsData = {
+    race: {
+      title: Object.entries(apiData.race).sort((a, b) => b[1] - a[1])[0][0],
+      confidenceTitle: "Race A.I Confidence",
+      results: Object.entries(apiData.race)
+        .sort((a, b) => b[1] - a[1])
+        .map(([label, value]) => ({
+          label,
+          percent: Math.round(value * 100),
+        })),
+    },
+
+    age: {
+      title: Object.entries(apiData.age).sort((a, b) => b[1] - a[1])[0][0],
+      confidenceTitle: "Age A.I Confidence",
+      results: Object.entries(apiData.age)
+        .sort((a, b) => b[1] - a[1])
+        .map(([label, value]) => ({
+          label,
+          percent: Math.round(value * 100),
+        })),
+    },
+
+    sex: {
+      title: Object.entries(apiData.gender).sort((a, b) => b[1] - a[1])[0][0],
+      confidenceTitle: "Sex A.I Confidence",
+      results: Object.entries(apiData.gender)
+        .sort((a, b) => b[1] - a[1])
+        .map(([label, value]) => ({
+          label,
+          percent: Math.round(value * 100),
+        })),
+    },
+  };
+
+  const selectedData = demographicsData[selectedCategory];
+
+  const selectedTitle = overrides[selectedCategory] || selectedData.title;
 
   return (
     <>
@@ -61,7 +87,16 @@ export default function Demographics() {
           PREDICTED RACE & AGE
         </p>
 
-        <div className="grid md:grid-cols-[.5fr_3fr_1fr] gap-4 mt-10 h-100">
+        <div
+          className="
+            grid
+            grid-cols-1
+            md:grid-cols-[.5fr_3fr_1fr]
+            gap-4
+            mx-50
+            pt-20
+          "
+        >
           <div className="flex flex-col w-52 gap-2">
             <button
               onClick={() => setSelectedCategory("race")}
@@ -83,23 +118,25 @@ export default function Demographics() {
       }
     `}
             >
-              <p className="text-[14px] uppercase">East Asian</p>
+              <p className="text-[14px] uppercase">
+                {overrides.race || demographicsData.race.title}
+              </p>
               <p className="text-[14px] uppercase">Race</p>
             </button>
 
             <button
               onClick={() => setSelectedCategory("age")}
-              className={`
-      h-26
-      px-4
-      py-3
-      border-t
-      text-left
-      flex
-      flex-col
-      justify-between
-      font-semibold
-      transition-colors
+                className={`
+                  h-26
+                  px-4
+                  py-3
+                  border-t
+                  text-left
+                  flex
+                  flex-col
+                  justify-between
+                  font-semibold
+              transition-colors
       ${
         selectedCategory === "age"
           ? "bg-[#1A1B1C] text-[#FCFCFC]"
@@ -107,23 +144,25 @@ export default function Demographics() {
       }
     `}
             >
-              <p className="text-[14px] uppercase">20-29</p>
+              <p className="text-[14px] uppercase">
+                {overrides.age || demographicsData.age.title}
+              </p>
               <p className="text-[14px] uppercase">Age</p>
             </button>
 
             <button
               onClick={() => setSelectedCategory("sex")}
               className={`
-      h-26
-      px-4
-      py-3
-      border-t
-      text-left
-      flex
-      flex-col
-      justify-between
-      font-semibold
-      transition-colors
+                h-26
+                px-4
+                py-3
+                border-t
+                text-left
+                flex
+                flex-col
+                justify-between
+                font-semibold
+                transition-colors
       ${
         selectedCategory === "sex"
           ? "bg-[#1A1B1C] text-[#FCFCFC]"
@@ -131,27 +170,40 @@ export default function Demographics() {
       }
     `}
             >
-              <p className="text-[14px] uppercase">Female</p>
+              <p className="text-[14px] uppercase">
+                {overrides.sex || demographicsData.sex.title}
+              </p>
               <p className="text-[14px] uppercase">Sex</p>
             </button>
           </div>
 
           <div className="relative bg-[#F3F3F3] h-110">
-            <div className="text-[40px] leading-10 ml-8 pt-8">
-                
-         
-                {selectedData.title}</div>
+            <div className="text-[40px] leading-10 ml-8 pt-8 uppercase">
+              {selectedTitle}
+            </div>
 
             <div className="absolute bottom-4 right-4">
               <Progress percent={selectedData.results[0].percent} />
             </div>
           </div>
-            <AIConfidence data={selectedData} />
+          <AIConfidence
+            data={selectedData}
+            onSelect={(label) =>
+              setOverrides((prev) => ({
+                ...prev,
+                [selectedCategory]: label,
+              }))
+            }
+          />
         </div>
 
-          <BackButton />
-          <button
-          onClick={() => router.push("/Introduce")} className="absolute  bottom-24 right-8 border h-12 w-18 font-semibold color-[#1A1B1C] hover:bg-[#E1E1E2]">RESET</button>
+        <BackButton />
+        <button
+          onClick={() => router.push("/Introduce")}
+          className="absolute  bottom-24 right-8 border h-12 w-18 font-semibold color-[#1A1B1C] hover:bg-[#E1E1E2]"
+        >
+          RESET
+        </button>
       </section>
     </>
   );

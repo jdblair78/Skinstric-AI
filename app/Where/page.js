@@ -44,9 +44,12 @@ export default function Where() {
       Success: `added ${payload.name} from ${payload.location}`,
     });
 
-    setStatus("success");
-  }
+    setStatus("processing");
 
+    setTimeout(() => {
+      setStatus("success");
+    }, 3000);
+  }
   return (
     <>
       <Navbar />
@@ -61,6 +64,9 @@ export default function Where() {
           className="flex flex-1 flex-col items-center justify-center gap-3"
         >
           <RotatingRectangleInput
+            large={750}
+            medium={680}
+            small={600}
             value={location}
             onChange={(event) => setLocation(event.target.value)}
             status={status}
