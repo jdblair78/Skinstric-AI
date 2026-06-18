@@ -14,71 +14,64 @@ export default function Allow() {
   const fileInputRef = useRef(null);
   const router = useRouter();
 
-  function handleAllow() {
-    if (modalType === "camera") {
-      router.push("/Camera");
-      return;
-    }
 
-    if (modalType === "gallery") {
-      setModalType(null);
-      fileInputRef.current?.click();
-    }
-  }
+async function handleFileSelect(event) {
+  const file = event.target.files[0];
 
-  function handleFileSelect(event) {
-    const file = event.target.files[0];
+  if (!file) return;
 
-    if (!file) return;
+  setStatus("processing");
 
-    const reader = new FileReader();
+  const reader = new FileReader();
 
-    reader.onloadend = async () => {
+  reader.onloadend = async () => {
+    try {
       const imageBase64 = reader.result;
 
-      const existingData =
-        JSON.parse(localStorage.getItem("skinstric_phase_one")) || {};
+      localStorage.setItem("skinstric_uploaded_image", imageBase64);
 
-      const updatedData = {
-        ...existingData,
-        photo: imageBase64,
-      };
-
-      localStorage.setItem("skinstric_phase_one", JSON.stringify(updatedData));
-
-      setStatus("processing");
-
-      try {
-        const response = await fetch(
-          "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              image: imageBase64,
-            }),
+      const response = await fetch(
+        "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        );
+          body: JSON.stringify({
+            image: imageBase64,
+          }),
+        }
+      );
 
-        const result = await response.json();
+      const result = await response.json();
 
-        console.log("Phase Two Result:", result);
 
-        localStorage.setItem("skinstric_results", JSON.stringify(result));
-
-        setTimeout(() => {
-          router.push("/Demographics");
-        }, 3000);
-      } catch (error) {
-        console.error("Phase Two Error:", error);
-        setStatus("");
+      if (!response.ok || result.success === false) {
+        throw new Error(result.message || "Image analysis failed");
       }
-    };
 
-    reader.readAsDataURL(file);
+      localStorage.setItem("skinstric_results", JSON.stringify(result));
+
+      router.push("/Demographics");
+    } catch (error) {
+      setStatus("");
+    }
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function handleAllow() {
+  if (modalType === "camera") {
+    router.push("/Camera");
+    return;
   }
+
+  if (modalType === "gallery") {
+    setModalType(null);
+    fileInputRef.current?.click();
+  }
+}
 
   return (
     <>

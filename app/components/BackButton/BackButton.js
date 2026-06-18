@@ -11,9 +11,6 @@ export default function BackButton() {
       onClick={() => router.back()}
       className="
       group
-      absolute 
-      bottom-24 
-      left-8 
       flex 
       items-center 
       gap-3 
@@ -22,14 +19,9 @@ export default function BackButton() {
       font-semibold 
       text-[#1A1B1C]"
     >
-    <span className="transition-transform duration-300 group-hover:scale-110 cursor-pointer">
-    <Image
-      src="/buttin-icon-left.svg"
-      alt="Back"
-      width={44}
-      height={44}
-    />
-  </span>
+      <span className="transition-transform duration-300 group-hover:scale-110 cursor-pointer">
+        <Image src="/buttin-icon-left.svg" alt="Back" width={44} height={44} />
+      </span>
       Back
     </button>
   );

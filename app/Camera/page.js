@@ -28,7 +28,6 @@ export default function Camera() {
           videoRef.current.srcObject = stream;
         }
       } catch (error) {
-        console.error("Camera error:", error);
       }
     }
 
@@ -88,7 +87,6 @@ export default function Camera() {
         router.push("/Demographics");
       }, 3000);
     } catch (error) {
-      console.error("Phase Two Error:", error);
       setStatus("");
     }
   }

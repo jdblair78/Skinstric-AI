@@ -11,7 +11,6 @@ export default function Demographics() {
   const router = useRouter();
 
   const [overrides, setOverrides] = useState({});
-
   const [selectedCategory, setSelectedCategory] = useState("sex");
 
   const [apiData] = useState(() => {
@@ -67,19 +66,18 @@ export default function Demographics() {
   };
 
   const selectedData = demographicsData[selectedCategory];
-
   const selectedTitle = overrides[selectedCategory] || selectedData.title;
 
   return (
     <>
       <Navbar />
 
-      <section className="relative h-[calc(100vh-64px)] overflow-hidden flex flex-col px-6">
+      <section className="relative min-h-[calc(100vh-64px)] overflow-y-auto flex flex-col px-4 sm:px-6 pb-32">
         <p className="text-[16px] leading-6 tracking-[-0.02em] font-semibold text-[#1A1B1C]">
           A.I ANALYSIS
         </p>
 
-        <h3 className="text-[72px] leading-none tracking-[-0.02em] font-normal text-[#1A1B1C]">
+        <h3 className="text-[42px] sm:text-[56px] lg:text-[72px] leading-none tracking-[-0.02em] font-normal text-[#1A1B1C]">
           DEMOGRAPHICS
         </h3>
 
@@ -91,32 +89,38 @@ export default function Demographics() {
           className="
             grid
             grid-cols-1
-            md:grid-cols-[.5fr_3fr_1fr]
+            lg:grid-cols-[220px_minmax(0,1fr)_320px]
             gap-4
-            mx-50
-            pt-20
+            w-full
+            max-w-[1200px]
+            mx-auto
+            pt-8
+            lg:pt-20
           "
         >
-          <div className="flex flex-col w-52 gap-2">
+          <div className="flex flex-col sm:flex-row lg:flex-col w-full lg:w-52 gap-2">
             <button
               onClick={() => setSelectedCategory("race")}
               className={`
-      h-26
-      px-4
-      py-3
-      border-t
-      text-left
-      flex
-      flex-col
-      justify-between
-      font-semibold
-      transition-colors
-      ${
-        selectedCategory === "race"
-          ? "bg-[#1A1B1C] text-[#FCFCFC]"
-          : "bg-[#F3F3F4] text-[#1A1B1C]"
-      }
-    `}
+                h-24
+                sm:h-28
+                lg:h-26
+                flex-1
+                px-4
+                py-3
+                border-t
+                text-left
+                flex
+                flex-col
+                justify-between
+                font-semibold
+                transition-colors
+                ${
+                  selectedCategory === "race"
+                    ? "bg-[#1A1B1C] text-[#FCFCFC]"
+                    : "bg-[#F3F3F4] text-[#1A1B1C]"
+                }
+              `}
             >
               <p className="text-[14px] uppercase">
                 {overrides.race || demographicsData.race.title}
@@ -127,22 +131,25 @@ export default function Demographics() {
             <button
               onClick={() => setSelectedCategory("age")}
               className={`
-                  h-26
-                  px-4
-                  py-3
-                  border-t
-                  text-left
-                  flex
-                  flex-col
-                  justify-between
-                  font-semibold
-              transition-colors
-      ${
-        selectedCategory === "age"
-          ? "bg-[#1A1B1C] text-[#FCFCFC]"
-          : "bg-[#F3F3F4] text-[#1A1B1C]"
-      }
-    `}
+                h-24
+                sm:h-28
+                lg:h-26
+                flex-1
+                px-4
+                py-3
+                border-t
+                text-left
+                flex
+                flex-col
+                justify-between
+                font-semibold
+                transition-colors
+                ${
+                  selectedCategory === "age"
+                    ? "bg-[#1A1B1C] text-[#FCFCFC]"
+                    : "bg-[#F3F3F4] text-[#1A1B1C]"
+                }
+              `}
             >
               <p className="text-[14px] uppercase">
                 {overrides.age || demographicsData.age.title}
@@ -153,7 +160,10 @@ export default function Demographics() {
             <button
               onClick={() => setSelectedCategory("sex")}
               className={`
-                h-26
+                h-24
+                sm:h-28
+                lg:h-26
+                flex-1
                 px-4
                 py-3
                 border-t
@@ -163,12 +173,12 @@ export default function Demographics() {
                 justify-between
                 font-semibold
                 transition-colors
-      ${
-        selectedCategory === "sex"
-          ? "bg-[#1A1B1C] text-[#FCFCFC]"
-          : "bg-[#F3F3F4] text-[#1A1B1C]"
-      }
-    `}
+                ${
+                  selectedCategory === "sex"
+                    ? "bg-[#1A1B1C] text-[#FCFCFC]"
+                    : "bg-[#F3F3F4] text-[#1A1B1C]"
+                }
+              `}
             >
               <p className="text-[14px] uppercase">
                 {overrides.sex || demographicsData.sex.title}
@@ -177,8 +187,8 @@ export default function Demographics() {
             </button>
           </div>
 
-          <div className="relative bg-[#F3F3F3] h-110">
-            <div className="text-[40px] leading-10 ml-8 pt-8 uppercase">
+          <div className="relative bg-[#F3F3F3] min-h-[360px] sm:min-h-[440px] lg:h-110">
+            <div className="text-[36px] sm:text-[48px] lg:text-[40px] leading-none ml-4 sm:ml-8 pt-6 sm:pt-8 uppercase break-words">
               {selectedTitle}
             </div>
 
@@ -186,6 +196,7 @@ export default function Demographics() {
               <Progress percent={selectedData.results[0].percent} />
             </div>
           </div>
+
           <AIConfidence
             data={selectedData}
             onSelect={(label) =>
@@ -197,13 +208,16 @@ export default function Demographics() {
           />
         </div>
 
-        <BackButton />
-        <button
-          onClick={() => router.push("/Introduce")}
-          className="absolute  bottom-24 right-8 border h-12 w-18 font-semibold color-[#1A1B1C] hover:bg-[#E1E1E2]"
-        >
-          RESET
-        </button>
+        <div className="fixed bottom-6 left-4 right-4 flex justify-between items-center z-50">
+          <BackButton />
+
+          <button
+            onClick={() => router.push("/Introduce")}
+            className="border h-12 w-18 font-semibold text-[#1A1B1C] hover:bg-[#E1E1E2]"
+          >
+            RESET
+          </button>
+        </div>
       </section>
     </>
   );
