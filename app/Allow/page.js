@@ -3,9 +3,9 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "../Navbar/page";
-import BackButton from "../components/BackButton/page";
-import RotatingRectangleInput from "../components/RotatingRectangleInput/page";
-import AllowModal from "../components/AllowModal/page";
+import BackButton from "../components/BackButton/BackButton";
+import RotatingRectangleInput from "../components/RotatingRectangleInput/RotatingRectangleInput";
+import AllowModal from "../components/AllowModal/AllowModal";
 import Image from "next/image";
 
 export default function Allow() {

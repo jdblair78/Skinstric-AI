@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Navbar from "../Navbar/page";
-import BackButton from "../components/BackButton/page";
-import RotatingRectangleInput from "../components/RotatingRectangleInput/page";
-import Link from "next/link";
-import ProceedBtn from "../components/ProceedBtn/page";
+import BackButton from "../components/BackButton/BackButton";
+import RotatingRectangleInput from "../components/RotatingRectangleInput/RotatingRectangleInput";
+import ProceedBtn from "../components/ProceedBtn/ProceedBtn";
+
+import { useState, useEffect } from "react";
 
 export default function Where() {
   const [location, setLocation] = useState("");

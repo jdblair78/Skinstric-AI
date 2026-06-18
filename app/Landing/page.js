@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Navbar from "../Navbar/page";
 
 export default function Landing() {
   const [hoverSide, setHoverSide] = useState(null);

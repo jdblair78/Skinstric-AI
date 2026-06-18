@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "../Navbar/page";
-import BackButton from "../components/BackButton/page";
-import RotatingRectangleInput from "../components/RotatingRectangleInput/page";
+import BackButton from "../components/BackButton/BackButton";
+import RotatingRectangleInput from "../components/RotatingRectangleInput/RotatingRectangleInput";
 
 export default function Introduce() {
   const [name, setName] = useState("");

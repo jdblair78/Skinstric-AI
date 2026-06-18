@@ -1,15 +1,15 @@
 "use client";
 
 import Navbar from "../Navbar/page";
-import BackButton from "../components/BackButton/page";
-import ProceedBtn from "../components/ProceedBtn/page";
+import BackButton from "../components/BackButton/BackButton";
+import ProceedBtn from "../components/ProceedBtn/ProceedBtn";
+import RotatingRectangleInput from "../components/RotatingRectangleInput/RotatingRectangleInput";
+
 import Image from "next/image";
-import RotatingRectangleInput from "../components/RotatingRectangleInput/page";
 import { useRouter } from "next/navigation";
 
-
 export default function Select() {
-const router = useRouter()
+  const router = useRouter();
 
   return (
     <>
@@ -30,7 +30,7 @@ const router = useRouter()
               <div className="relative w-[320px] h-[320px]">
                 {/* Top */}
                 <button
-                onClick={() => router.push("/Demographics")}
+                  onClick={() => router.push("/Demographics")}
                   className="
           absolute
           top-0

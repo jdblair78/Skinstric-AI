@@ -1,9 +1,9 @@
 "use client";
 
-import BackButton from "../components/BackButton/page";
-import Progress from "../components/Progress/page";
+import BackButton from "../components/BackButton/BackButton";
+import Progress from "../components/Progress/Progress";
 import Navbar from "../Navbar/page";
-import AIConfidence from "../components/AIConfidence/page";
+import AIConfidence from "../components/AIConfidence/AIConfidence";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -126,7 +126,7 @@ export default function Demographics() {
 
             <button
               onClick={() => setSelectedCategory("age")}
-                className={`
+              className={`
                   h-26
                   px-4
                   py-3

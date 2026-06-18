@@ -4,8 +4,8 @@
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "../Navbar/page";
-import BackButton from "../components/BackButton/page";
-import RotatingRectangleInput from "../components/RotatingRectangleInput/page";
+import BackButton from "../components/BackButton/BackButton";
+import RotatingRectangleInput from "../components/RotatingRectangleInput/RotatingRectangleInput";
 
 export default function Camera() {
   const videoRef = useRef(null);
@@ -61,7 +61,7 @@ export default function Camera() {
       JSON.stringify({
         ...existingData,
         photo: imageBase64,
-      })
+      }),
     );
 
     setStatus("processing");
@@ -77,7 +77,7 @@ export default function Camera() {
           body: JSON.stringify({
             image: imageBase64,
           }),
-        }
+        },
       );
 
       const result = await response.json();
