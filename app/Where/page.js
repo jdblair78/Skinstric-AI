@@ -74,9 +74,10 @@ export default function Where() {
           />
         </form>
 
-        <BackButton />
-
-        {status === "success" && <ProceedBtn />}
+        <div className="flex items-center justify-between pb-8">
+          <BackButton />
+          {status === "success" && <ProceedBtn />}
+        </div>
       </section>
     </>
   );

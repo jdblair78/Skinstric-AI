@@ -117,8 +117,10 @@ export default function Select() {
           </RotatingRectangleInput>
         </div>
 
-        <BackButton />
-        <ProceedBtn />
+        <div className="flex items-center justify-between pb-8">
+          <BackButton />
+          <ProceedBtn />
+        </div>
       </section>
     </>
   );

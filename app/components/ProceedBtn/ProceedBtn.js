@@ -10,7 +10,7 @@ export default function ProceedBtn() {
     <button
       type="button"
       onClick={() => router.push("/Allow")}
-      className="absolute bottom-24 right-8 flex items-center gap-3 text-[14px] uppercase font-semibold text-[#1A1B1C] group"
+      className="group flex items-center gap-3 text-[14px] uppercase font-semibold text-[#1A1B1C]"
     >
       <span>Proceed</span>
 
